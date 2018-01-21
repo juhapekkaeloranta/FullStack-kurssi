@@ -1,0 +1,16 @@
+kayttaja->selain:
+
+note left of selain
+  kayttaja kirjottaa uuden muistiinpanon ja
+  painaa talleta
+end note
+
+selain->palvelin: post /new_note
+
+palvelin->selain: 302, redirect to /notes
+
+note right of selain
+  selain ohjataan uudelleen sivulle /notes
+  selain hakee notes sivun palvelimelta,
+  kuten edellisessä tehtävässä
+end note
