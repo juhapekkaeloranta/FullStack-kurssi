@@ -1,18 +1,61 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const Button = ({ handleClick, buttonText }) => {
+  return (
+    <button type="button" onClick={handleClick}>
+      {buttonText}
+    </button>
+  )
+}
+
+const VoteCount = ({ votes }) => {
+  return (
+    <p>
+      has {votes} votes
+    </p>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 0
+      selected: 0,
+      votes: [0, 0, 0, 0, 0, 0]
     }
   }
+
+  nextAnecdote = () => {
+    this.setState(
+      { selected: Math.floor(Math.random()*6)}
+    );
+  }
+
+  vote = (voteId) => {
+    return () => {
+      let newVotes = this.state.votes
+      console.log('vote for ' + voteId)
+      newVotes[voteId] = newVotes[voteId] + 1
+      console.log(newVotes)
+    }
+  }
+  
 
   render() {
     return (
       <div>
+        <h1>Random anecdote:</h1>
         {this.props.anecdotes[this.state.selected]}
+        <br/>
+        <VoteCount votes={this.state.votes[this.state.selected]} />
+        <br/>
+        <Button buttonText='Vote' handleClick={this.vote(this.state.selected)}/>
+        <Button buttonText='Next' handleClick={this.nextAnecdote}/>
+        <br/>
+        <h2>Most votes:</h2>
+        {this.props.anecdotes[this.state.votes.indexOf(Math.max(...this.state.votes))]}
+        <VoteCount votes={this.state.votes[this.state.votes.indexOf(Math.max(...this.state.votes))]} />
       </div>
     )
   }
