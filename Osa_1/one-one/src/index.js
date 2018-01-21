@@ -2,68 +2,62 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Otsikko = (props) => {
-    return (
-        <h1>{props.kurssiNimi}</h1>
-    )
+  console.log(props)
+  return (
+    <h1>{props.kurssinTiedot.nimi}</h1>
+  )
 }
 
 const Osa = (props) => {
-    return (
-        <p>{props.osanNimi} {props.tehtLkm}</p>
-    )
+  return (
+    <p>{props.osanNimi} {props.tehtLkm}</p>
+  )
 }
 
 const Sisalto = (props) => {
-    console.log(props.osienTiedot[0])
-
-
-    return (
-        <div>
-            <Osa osanNimi={props.osienTiedot[0].osanNimi} tehtLkm={props.osienTiedot[0].osanTehtLkm}></Osa>
-            <Osa osanNimi={props.osienTiedot[1].osanNimi} tehtLkm={props.osienTiedot[1].osanTehtLkm}></Osa>
-            <Osa osanNimi={props.osienTiedot[2].osanNimi} tehtLkm={props.osienTiedot[2].osanTehtLkm}></Osa>
-        </div>
-    )
+  return (
+    <div>
+      <Osa osanNimi={props.kurssinTiedot.osat[0].nimi} tehtLkm={props.kurssinTiedot.osat[0].tehtavia}></Osa>
+      <Osa osanNimi={props.kurssinTiedot.osat[1].nimi} tehtLkm={props.kurssinTiedot.osat[1].tehtavia}></Osa>
+      <Osa osanNimi={props.kurssinTiedot.osat[2].nimi} tehtLkm={props.kurssinTiedot.osat[2].tehtavia}></Osa>
+    </div>
+  )
 }
 
 const Yhteensa = (props) => {
-    return (
-        <p>yhteensä {props.tehtavia} tehtävää</p>
-    )
+  const tehtaviaYhteensa = 
+    props.kurssinTiedot.osat[0].tehtavia +
+    props.kurssinTiedot.osat[1].tehtavia +
+    props.kurssinTiedot.osat[2].tehtavia
+  return (
+    <p>yhteensä {tehtaviaYhteensa} tehtävää</p>
+  )
 }
 
 const App = () => {
-  const kurssi = 'Half Stack -sovelluskehitys'
-  
-  const osa1 = 'Reactin perusteet'
-  const tehtavia1 = 10
-  const osa2 = 'Tiedonvälitys propseilla'
-  const tehtavia2 = 7
-  const osa3 = 'Komponenttien tila'
-  const tehtavia3 = 14
-
-  const osat = [
+  const kurssi = {
+    nimi: 'Half Stack -sovelluskehitys',
+    osat: [
       {
-        "osanNimi": osa1,
-        "osanTehtLkm": tehtavia1
+        nimi: 'Reactin perusteet',
+        tehtavia: 10
       },
       {
-        "osanNimi": osa2,
-        "osanTehtLkm": tehtavia2
+        nimi: 'Tiedonvälitys propseilla',
+        tehtavia: 7
       },
       {
-        "osanNimi": osa3,
-        "osanTehtLkm": tehtavia3
+        nimi: 'Komponenttien tila',
+        tehtavia: 14
       }
     ]
-
-  const yhteensa = tehtavia1 + tehtavia2 + tehtavia3
+  }
 
   return (
     <div>
-      <Otsikko kurssiNimi={kurssi} />
-      <Sisalto osienTiedot={osat}/>
-      <Yhteensa tehtavia={yhteensa}/>
+      <Otsikko kurssinTiedot={kurssi} />
+      <Sisalto kurssinTiedot={kurssi}/>
+      <Yhteensa kurssinTiedot={kurssi}/>
     </div>
   )
 }
