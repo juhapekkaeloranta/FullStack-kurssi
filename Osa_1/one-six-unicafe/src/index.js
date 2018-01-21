@@ -14,11 +14,15 @@ const Statistics = ({ statisticsData }) => {
     return (
     <div>
       <h2>Statistiikka</h2>
-      <Statistic statName='hyvät' statData={statisticsData.good} />
-      <Statistic statName='neutraalit' statData={statisticsData.neutral} />
-      <Statistic statName='huonot' statData={statisticsData.bad} />
-      <Statistic statName='keskiarvo' statData={(statisticsData.sumRatings / statisticsData.countRatings).toFixed(1)} />
-      <Statistic statName='positiivisia' statData={(statisticsData.good / statisticsData.countRatings * 100).toFixed(0) + ' %'} />
+      <table>
+        <tbody>
+          <Statistic statName='hyvät' statData={statisticsData.good} />
+          <Statistic statName='neutraalit' statData={statisticsData.neutral} />
+          <Statistic statName='huonot' statData={statisticsData.bad} />
+          <Statistic statName='keskiarvo' statData={(statisticsData.sumRatings / statisticsData.countRatings).toFixed(1)} />
+          <Statistic statName='positiivisia' statData={(statisticsData.good / statisticsData.countRatings * 100).toFixed(0) + ' %'} />
+        </tbody>
+      </table>
     </div>
     )
   } else {
@@ -33,7 +37,9 @@ const Statistics = ({ statisticsData }) => {
 
 const Statistic = ({ statName, statData }) => {
   return (
-    <p>{statName}: {statData}</p>
+    <tr>
+      <td>{statName}:</td><td>{statData}</td>
+    </tr>
   )
 }
 
