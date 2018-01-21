@@ -1,0 +1,2 @@
+spa sivu ladataan samalla tavalla kuin kohdassa 0.3
+vain main.js on nyt spa.js

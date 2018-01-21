@@ -1,0 +1,22 @@
+kayttaja->selain:
+
+note left of selain
+  kayttaja kirjottaa uuden muistiinpanon ja
+  painaa talleta
+end note
+
+note right of selain
+  selain tekee uuden muistiinpanon päivityksen
+  ensin paikallisesti ja näyttää sen heti käyttäjälle
+end note
+
+selain->kayttaja: päivitetty sivu
+
+note right of selain
+  paikallisen päivityksen jälkeen selain lähettää
+  uuden muistiinpanon palvelimelle
+end note
+
+selain->palvelin: post /data.json
+
+palvelin->selain: status 201, "tallennus onnistui"
