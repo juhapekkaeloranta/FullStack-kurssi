@@ -49,22 +49,12 @@ class App extends React.Component {
     }
   }
 
-  giveGoodRating = () => {
-    this.setState({ good: this.state.good + 1})
-    this.addRatingCount()
-    this.updateTotalRating(1)
-  }
-
-  giveNeutralRating = () => {
-    this.setState({ neutral: this.state.neutral + 1})
-    this.addRatingCount()
-    this.updateTotalRating(0)
-  }
-  
-  giveBadRating = () => {
-    this.setState({ bad: this.state.bad + 1})
-    this.addRatingCount()
-    this.updateTotalRating(-1)
+  giveRating = (ratingType, ratingValue) => {
+    return () => {
+      this.setState({ [ratingType]: this.state[ratingType] + 1})
+      this.addRatingCount()
+      this.updateTotalRating(ratingValue)
+    }
   }
 
   addRatingCount = () => {
@@ -79,9 +69,9 @@ class App extends React.Component {
     return (
       <div>
         <h1>Anna palautetta päivän ruoasta:</h1>
-        <Button buttonText='hyvä' handleClick={this.giveGoodRating}/>
-        <Button buttonText='neutraali' handleClick={this.giveNeutralRating} />
-        <Button buttonText='huono' handleClick={this.giveBadRating} />      
+        <Button buttonText='hyvä' handleClick={this.giveRating('good', 1)}/>
+        <Button buttonText='neutraali' handleClick={this.giveRating('neutral', 0)} />
+        <Button buttonText='huono' handleClick={this.giveRating('bad', -1)} />      
         <Statistics statisticsData={this.state} />
         <p>{this.countAvg}</p>
       </div>
