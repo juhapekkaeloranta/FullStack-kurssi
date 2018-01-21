@@ -1,0 +1,54 @@
+kayttaja->selain:
+
+note left of selain
+kayttaja kirjottaa osoiteriville
+fullstack-exampleapp.herokuapp.com/notes
+end note
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/notes
+
+note left of palvelin
+  palautetaan /notes sivun staattinen html
+end note
+
+palvelin->selain: status 200, sivun HTML-koodi tiedostossa 'notes'
+
+note right of selain
+  html-sivun head-tagi sisältää viittaukset kahteen tiedostoon:
+  main.css ja main.js.
+  Selain hakee ne palvelimelta:
+end note
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200, main.css
+
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200, main.js
+
+note right of selain
+  selain suorittaa main.js tiedoston, joka
+  sisältää asynkronisen käskyn hakea data.json palvelimelta
+end note
+
+selain->palvelin:  GET fullstack-exampleapp.herokuapp.com/data.json
+
+note right of selain
+  sivun DOM on nyt ladattu ilman asynkronisesti ladattavaa dataa
+end note
+
+selain->kayttaja: sivun staattinen DOM
+
+note left of selain
+ DOMContentLoaded tarkoittaa, 
+ että sivun html on ladattu ja parsittu.
+ Nyt käyttäjä näkee sivun.
+end note
+
+palvelin->selain: status 200, data.json
+
+note right of selain
+  selain saa muistiinpanojen datan json muodossa ja
+  main.js renderöi lisää muistiinpanot sivun DOMiin
+end note
+
+selain->kayttaja: valmis sivu
