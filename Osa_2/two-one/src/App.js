@@ -1,13 +1,10 @@
 import React from 'react'
-import Note from './components/Note'
+import Kurssi from './components/Kurssi'
 
 const App = ({ notes }) => {
   return (
     <div>
-      <h1>Muistiinpanot</h1>
-      <ul>
-        {notes.map(note => <Note key={note.id} note={note} />)}
-      </ul>
+      <Kurssi kurssiInfo={notes}/>
     </div>
   )
 }
