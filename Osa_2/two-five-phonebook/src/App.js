@@ -30,8 +30,17 @@ class App extends React.Component {
     event.preventDefault()
     const newPersons = this.state.persons
     const newPerson = this.state.newName
-    newPersons.push({ name: newPerson })
-    this.setState({ persons: newPersons, newName: 'add new..' })
+    
+    const isDuplicate = newPersons.find(contact => {
+      return contact.name === newPerson
+    })
+
+    if (isDuplicate) {
+      window.alert("Duplicate name - not saved!");
+    } else {
+      newPersons.push({ name: newPerson })
+      this.setState({ persons: newPersons, newName: 'add new..' })
+    }
   }
 
   handleInputChange = (event) => {
@@ -40,6 +49,7 @@ class App extends React.Component {
 
   emptyInput = (event) => {
     this.setState({ newName: '' })
+    console.log(this.contains)
   }
 
   render() {
