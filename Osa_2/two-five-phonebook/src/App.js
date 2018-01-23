@@ -1,16 +1,16 @@
 import React from 'react';
 
 const Row = (props) => {
-  console.log(props.key, props.content)
+  console.log(props)
   return (
-    <li key={props.content}>{props.content}</li>
+    <li key={props.content}>foo</li>
   )
 }
 
 const Rows = ({ rowData }) => {
   return (
     <ul>
-      {rowData.map(row => (<Row key={row.name} content={row.name}/>))}
+      {rowData.map(row => <Row content={row.name}/>)}
     </ul>
   )
 }
