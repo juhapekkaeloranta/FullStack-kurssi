@@ -19,19 +19,28 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas', id: 1},
-        { name: 'Aku Ankka', id: 2}
+        { name: 'Arto Hellas'},
+        { name: 'Aku Ankka'}
       ],
-      newName: ''
+      newName: 'add new..'
     }
   }
 
   addContact = (event) => {
     event.preventDefault()
-    console.log('addContact called!')
-    console.log(event)
+    const newPersons = this.state.persons
+    const newPerson = this.state.newName
+    newPersons.push({ name: newPerson })
+    this.setState({ persons: newPersons, newName: 'add new..' })
   }
 
+  handleInputChange = (event) => {
+    this.setState({ newName: event.target.value })
+  }
+
+  emptyInput = (event) => {
+    this.setState({ newName: '' })
+  }
 
   render() {
     return (
@@ -40,7 +49,12 @@ class App extends React.Component {
 
         <form onSubmit={this.addContact}>
           <div>
-            nimi: <input />
+            nimi: 
+            <input 
+              value={this.state.newName} 
+              onChange={this.handleInputChange}
+              onClick={this.emptyInput}
+            />
           </div>
           <div>
             <button type="submit">lisää</button>
