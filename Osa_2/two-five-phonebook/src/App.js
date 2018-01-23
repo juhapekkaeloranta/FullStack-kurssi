@@ -1,16 +1,15 @@
 import React from 'react';
 
-const Row = (props) => {
-  console.log(props)
+const Row = ({ rowData }) => {
   return (
-    <li key={props.content}>foo</li>
+    <li>{rowData.name}</li>
   )
 }
 
-const Rows = ({ rowData }) => {
+const Rows = ({ rowsData }) => {
   return (
     <ul>
-      {rowData.map(row => <Row content={row.name}/>)}
+      {rowsData.map(row => <Row key={row.name} rowData={row}/>)}
     </ul>
   )
 }
@@ -20,8 +19,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas' },
-        { name: 'Aku Ankka'}
+        { name: 'Arto Hellas', id: 1},
+        { name: 'Aku Ankka', id: 2}
       ],
       newName: ''
     }
@@ -49,7 +48,7 @@ class App extends React.Component {
         </form>
 
         <h2>Numerot</h2>
-        <Rows rowData={this.state.persons} />
+        <Rows rowsData={this.state.persons} />
       </div>
     )
   }
