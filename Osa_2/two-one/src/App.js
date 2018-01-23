@@ -1,10 +1,14 @@
 import React from 'react'
 import Kurssi from './components/Kurssi'
 
-const App = ({ courseInfo }) => {
+const App = ({ courses }) => {
   return (
     <div>
-      <Kurssi courseInfo={courseInfo}/>
+      <h1>Kurssit:</h1>
+      {courses.map(course =>  <Kurssi
+        courseInfo={course}
+      />
+      )}
     </div>
   )
 }
