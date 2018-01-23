@@ -1,14 +1,17 @@
 import React from 'react'
-import Note from './Note'
 import Osa from './Osa'
 
-const Sisalto = ({ notes }) => {
+const Sisalto = ({ courseParts }) => {
+  const countExercises = courseParts.reduce(function(sum, part) {
+    return sum + part.tehtavia
+  }, 0)
   return (
     <ul>
-      {notes.map(note => <Osa 
-        key={note.id} 
-        partInfo={note}
+      {courseParts.map(part => <Osa 
+        key={part.id} 
+        partInfo={part}
       />)}
+      <p>Tehtavia yhteensä {countExercises}</p>
     </ul>
   )
 }

@@ -2,11 +2,11 @@ import React from 'react'
 import Otsikko from './Otsikko'
 import Sisalto from './Sisalto'
 
-const Kurssi = ({ kurssiInfo }) => {
+const Kurssi = ({ courseInfo }) => {
   return (
     <div>
-      <Otsikko headerText='Muistiinpanot'/>
-      <Sisalto notes={kurssiInfo}/>
+      <Otsikko headerText={courseInfo.courseName}/>
+      <Sisalto courseParts={courseInfo.courseParts}/>
     </div>
   )
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import Kurssi from './components/Kurssi'
 
-const App = ({ notes }) => {
+const App = ({ courseInfo }) => {
   return (
     <div>
-      <Kurssi kurssiInfo={notes}/>
+      <Kurssi courseInfo={courseInfo}/>
     </div>
   )
 }

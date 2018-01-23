@@ -2,7 +2,7 @@ import React from 'react'
 
 const Osa = ({ partInfo }) => {
   return (
-    <li>{partInfo.content}</li>
+    <li>{partInfo.nimi} {partInfo.tehtavia}</li>
   )
 }
 
