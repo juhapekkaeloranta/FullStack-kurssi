@@ -23,7 +23,8 @@ class App extends React.Component {
         { name: 'Aku Ankka', number: '0800-Aku'}
       ],
       newName: 'add new..',
-      newNumber: '040-12312300'
+      newNumber: '040-12312300',
+      filterWord: ''
     }
   }
 
@@ -55,6 +56,17 @@ class App extends React.Component {
     this.setState({ newNumber: event.target.value,})
   }
 
+  handleFilter = (event) => {
+    this.setState({ filterWord: event.target.value })
+    console.log(event.target.value)
+    this.filterVisibleRows()
+  }
+
+  filterVisibleRows = () => {
+    console.log('not implemented! use css plz');;
+    
+  }
+
   emptyInput = (event) => {
     this.setState({ newName: '' })
   }
@@ -67,6 +79,16 @@ class App extends React.Component {
     return (
       <div>
         <h2>Puhelinluettelo</h2>
+
+          <div>
+            Haku: 
+            <input 
+              value={this.state.filterWord} 
+              onChange={this.handleFilter}
+            />
+          </div>
+
+        <h2>Lisää uusi</h2>
 
         <form onSubmit={this.addContact}>
           <div>
