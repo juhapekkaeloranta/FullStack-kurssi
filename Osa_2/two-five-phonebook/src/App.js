@@ -2,7 +2,7 @@ import React from 'react';
 
 const Row = ({ rowData }) => {
   return (
-    <li>{rowData.name}</li>
+    <li>{rowData.name}: {rowData.number}</li>
   )
 }
 
@@ -19,37 +19,48 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas'},
-        { name: 'Aku Ankka'}
+        { name: 'Arto Hellas', number: '0400-Arto'},
+        { name: 'Aku Ankka', number: '0800-Aku'}
       ],
-      newName: 'add new..'
+      newName: 'add new..',
+      newNumber: '040-12312300'
     }
   }
 
   addContact = (event) => {
     event.preventDefault()
-    const newPersons = this.state.persons
-    const newPerson = this.state.newName
+    const tempPersons = this.state.persons
+    const tempPerson = this.state.newName
+    const tempNumber = this.state.newNumber
     
-    const isDuplicate = newPersons.find(contact => {
-      return contact.name === newPerson
+    const isDuplicate = tempPersons.find(contact => {
+      return contact.name === tempPerson
     })
 
     if (isDuplicate) {
       window.alert("Duplicate name - not saved!");
     } else {
-      newPersons.push({ name: newPerson })
-      this.setState({ persons: newPersons, newName: 'add new..' })
+      tempPersons.push({ name: tempPerson, number: tempNumber })
+      this.setState({ 
+        persons: tempPersons, 
+        newName: 'add new..' })
     }
   }
 
   handleInputChange = (event) => {
-    this.setState({ newName: event.target.value })
+    this.setState({ newName: event.target.value,})
+  }
+
+  handleNumberInputChange = (event) => {
+    this.setState({ newNumber: event.target.value,})
   }
 
   emptyInput = (event) => {
     this.setState({ newName: '' })
-    console.log(this.contains)
+  }
+
+  emptyNumberInput = (event) => {
+    this.setState({ newNumber: '' })
   }
 
   render() {
@@ -64,6 +75,14 @@ class App extends React.Component {
               value={this.state.newName} 
               onChange={this.handleInputChange}
               onClick={this.emptyInput}
+            />
+          </div>
+          <div>
+            puh: 
+            <input 
+              value={this.state.newNumber} 
+              onChange={this.handleNumberInputChange}
+              onClick={this.emptyNumberInput}
             />
           </div>
           <div>
