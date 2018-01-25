@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.css'
 
 const Row = ({ rowData }) => {
   return (
@@ -6,10 +7,19 @@ const Row = ({ rowData }) => {
   )
 }
 
-const Rows = ({ rowsData }) => {
+const Rows = ({ rowsData, filterWord }) => { 
+
+  const containsSubstring = ( props ) => {
+    /** Ruma riippuvuus ulospäin! */
+    return props.name.toLowerCase().includes(filterWord.toLowerCase())
+  }
+  
+  const filteredNames = rowsData.filter(containsSubstring)
+
   return (
     <ul>
-      {rowsData.map(row => <Row key={row.name} rowData={row}/>)}
+      {filteredNames.map(row => 
+        <Row key={row.name} rowData={row}/>)}
     </ul>
   )
 }
@@ -58,13 +68,6 @@ class App extends React.Component {
 
   handleFilter = (event) => {
     this.setState({ filterWord: event.target.value })
-    console.log(event.target.value)
-    this.filterVisibleRows()
-  }
-
-  filterVisibleRows = () => {
-    console.log('not implemented! use css plz');;
-    
   }
 
   emptyInput = (event) => {
@@ -78,7 +81,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Puhelinluettelo</h2>
+        <h1>Puhelinluettelo</h1>
 
           <div>
             Haku: 
@@ -113,7 +116,7 @@ class App extends React.Component {
         </form>
 
         <h2>Numerot</h2>
-        <Rows rowsData={this.state.persons} />
+        <Rows rowsData={this.state.persons} filterWord={this.state.filterWord} />
       </div>
     )
   }
