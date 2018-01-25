@@ -36,22 +36,16 @@ class App extends React.Component {
     }
   }
 
-  handleInputChange = (event) => {
-    this.setState({ newName: event.target.value,})
-  }
-
-  handleNumberInputChange = (event) => {
-    this.setState({ newNumber: event.target.value,})
-  }
-
-  handleFilter = (event) => {
-    this.setState({ filterWord: event.target.value })
-  }
-
-  resetStateVariable = (muuttuja) => {
+  saveEventTargetToState = (nameOfStateVar) => {
     return (event) => {
-      console.log('tyhjaa ', muuttuja)
-      this.setState({ [muuttuja]: '' })
+      console.log(nameOfStateVar)
+      this.setState({ [nameOfStateVar]: event.target.value })
+    }
+  }
+
+  resetStateVariable = (nameOfStateVar) => {
+    return (event) => {
+      this.setState({ [nameOfStateVar]: '' })
     }
   }
 
@@ -64,7 +58,7 @@ class App extends React.Component {
             Haku: 
             <input 
               value={this.state.filterWord} 
-              onChange={this.handleFilter}
+              onChange={this.saveEventTargetToState('filterWord')}
             />
           </div>
 
@@ -75,7 +69,7 @@ class App extends React.Component {
             nimi: 
             <input 
               value={this.state.newName} 
-              onChange={this.handleInputChange}
+              onChange={this.saveEventTargetToState('newName')}
               onClick={this.resetStateVariable('newName')}
             />
           </div>
@@ -83,7 +77,7 @@ class App extends React.Component {
             puh: 
             <input 
               value={this.state.newNumber} 
-              onChange={this.handleNumberInputChange}
+              onChange={this.saveEventTargetToState('newNumber')}
               onClick={this.resetStateVariable('newNumber')}
             />
           </div>
