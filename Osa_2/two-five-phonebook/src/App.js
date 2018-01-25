@@ -1,28 +1,6 @@
 import React from 'react';
 import './index.css'
-
-const Row = ({ rowData }) => {
-  return (
-    <li>{rowData.name}: {rowData.number}</li>
-  )
-}
-
-const Rows = ({ rowsData, filterWord }) => { 
-
-  const containsSubstring = ( props ) => {
-    /** Ruma riippuvuus ulospäin! */
-    return props.name.toLowerCase().includes(filterWord.toLowerCase())
-  }
-  
-  const filteredNames = rowsData.filter(containsSubstring)
-
-  return (
-    <ul>
-      {filteredNames.map(row => 
-        <Row key={row.name} rowData={row}/>)}
-    </ul>
-  )
-}
+import Rows from './components/Rows'
 
 class App extends React.Component {
   constructor(props) {
@@ -70,12 +48,11 @@ class App extends React.Component {
     this.setState({ filterWord: event.target.value })
   }
 
-  emptyInput = (event) => {
-    this.setState({ newName: '' })
-  }
-
-  emptyNumberInput = (event) => {
-    this.setState({ newNumber: '' })
+  resetStateVariable = (muuttuja) => {
+    return (event) => {
+      console.log('tyhjaa ', muuttuja)
+      this.setState({ [muuttuja]: '' })
+    }
   }
 
   render() {
@@ -99,7 +76,7 @@ class App extends React.Component {
             <input 
               value={this.state.newName} 
               onChange={this.handleInputChange}
-              onClick={this.emptyInput}
+              onClick={this.resetStateVariable('newName')}
             />
           </div>
           <div>
@@ -107,7 +84,7 @@ class App extends React.Component {
             <input 
               value={this.state.newNumber} 
               onChange={this.handleNumberInputChange}
-              onClick={this.emptyNumberInput}
+              onClick={this.resetStateVariable('newNumber')}
             />
           </div>
           <div>
