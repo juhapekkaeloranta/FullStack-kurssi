@@ -3,37 +3,21 @@ import Row from './Row'
 
 const Rows = ({ rowsData, filterWord }) => {
 
-  const containsSubstring = (props) => {
-    /** Ruma riippuvuus ulospäin! */
-    return props.name.toLowerCase().includes(filterWord.toLowerCase())
-  }
-
-  /** tulostajaGeneraattori on funktio, joka palauttaa funktion.
-   * Sille annetaan parametrinä string jota halutaan tulostella
-   */
-  const tulostajaGeneraattori = (tulostettavaSana) => {
-    return (toinen) => {
-      console.log(tulostettavaSana);
-      console.log(toinen)
+  const comparisonGenerator = (substringToFind) => {
+    return (textToSearchFrom) => {
+      console.log('trying to find', substringToFind, 'from', textToSearchFrom)
+      const wasFound = textToSearchFrom.includes(substringToFind)
+      return (
+        wasFound
+      )
     }
   }
 
-  /** Tässä alustetaan kaksi tulostajaFunktiota generaattorin avulla
-   * Toinen tulostaa 'foo' ja toinen 'bar'
-   */
-  const fooTulostajaFunktio = tulostajaGeneraattori('foo')
-  const barTulostajaFunktio = tulostajaGeneraattori('bar')
-  
-  fooTulostajaFunktio('fooParametri') //sama kuin console.log('foo')
-  barTulostajaFunktio('barParametri') //sama kuin console.log('bar')
+  const fooFinder = comparisonGenerator('foo')
 
-  /** Jos tulostaa itse tulostajaFunktion niin foo tai bar ei kuitenkaan näy.
-   * Seuraavat tulostavat siis täysin saman asian:
-   */
-  console.log(fooTulostajaFunktio)
-  console.log(barTulostajaFunktio)
+  console.log(fooFinder('barbarfoo'))
 
-  const filteredNames = rowsData.filter(containsSubstring)
+  const filteredNames = rowsData
 
   return (
     <ul>
