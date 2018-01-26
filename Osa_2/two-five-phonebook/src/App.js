@@ -1,6 +1,8 @@
 import React from 'react';
 import './index.css'
 import Rows from './components/Rows'
+import SearchField from './components/SearchField';
+import InputField from './components/InputField';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class App extends React.Component {
     const tempPersons = this.state.persons
     const tempPerson = this.state.newName
     const tempNumber = this.state.newNumber
-    
+
     const isDuplicate = tempPersons.find(contact => {
       return contact.name === tempPerson
     })
@@ -30,9 +32,10 @@ class App extends React.Component {
       window.alert("Duplicate name - not saved!");
     } else {
       tempPersons.push({ name: tempPerson, number: tempNumber })
-      this.setState({ 
-        persons: tempPersons, 
-        newName: 'add new..' })
+      this.setState({
+        persons: tempPersons,
+        newName: 'add new..'
+      })
     }
   }
 
@@ -48,46 +51,37 @@ class App extends React.Component {
       this.setState({ [nameOfStateVar]: '' })
     }
   }
-
+  /* Note: How to reduce amount of fields in InputField?
+  */
   render() {
     return (
       <div>
         <h1>Puhelinluettelo</h1>
-
-          <div>
-            Haku: 
-            <input 
-              value={this.state.filterWord} 
-              onChange={this.saveEventTargetToState('filterWord')}
-            />
-          </div>
-
+        <SearchField
+          text={this.state.filterWord}
+          handleChange={this.saveEventTargetToState('filterWord')}
+        />
         <h2>Lisää uusi</h2>
-
         <form onSubmit={this.addContact}>
-          <div>
-            nimi: 
-            <input 
-              value={this.state.newName} 
-              onChange={this.saveEventTargetToState('newName')}
-              onClick={this.resetStateVariable('newName')}
-            />
-          </div>
-          <div>
-            puh: 
-            <input 
-              value={this.state.newNumber} 
-              onChange={this.saveEventTargetToState('newNumber')}
-              onClick={this.resetStateVariable('newNumber')}
-            />
-          </div>
-          <div>
-            <button type="submit">lisää</button>
-          </div>
+          <InputField 
+            textField='nimi'
+            stateValue={this.state.newName}
+            handleChange={this.saveEventTargetToState('newName')}
+            handleClick={this.resetStateVariable('newName')}
+          />
+          <InputField 
+            textField='puh:'
+            stateValue={this.state.newNumber}
+            handleChange={this.saveEventTargetToState('newNumber')}
+            handleClick={this.resetStateVariable('newNumber')}
+          />
+          <button type="submit">lisää</button>
         </form>
-
         <h2>Numerot</h2>
-        <Rows rowsData={this.state.persons} filteringTerm={this.state.filterWord} />
+        <Rows 
+          rowsData={this.state.persons}
+          filteringTerm={this.state.filterWord}
+        />
       </div>
     )
   }
