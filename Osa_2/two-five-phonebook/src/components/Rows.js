@@ -12,8 +12,9 @@ const Rows = ({ rowsData, filterWord }) => {
    * Sille annetaan parametrinä string jota halutaan tulostella
    */
   const tulostajaGeneraattori = (tulostettavaSana) => {
-    return () => {
+    return (toinen) => {
       console.log(tulostettavaSana);
+      console.log(toinen)
     }
   }
 
@@ -23,8 +24,8 @@ const Rows = ({ rowsData, filterWord }) => {
   const fooTulostajaFunktio = tulostajaGeneraattori('foo')
   const barTulostajaFunktio = tulostajaGeneraattori('bar')
   
-  fooTulostajaFunktio() //sama kuin console.log('foo')
-  barTulostajaFunktio() //sama kuin console.log('bar')
+  fooTulostajaFunktio('fooParametri') //sama kuin console.log('foo')
+  barTulostajaFunktio('barParametri') //sama kuin console.log('bar')
 
   /** Jos tulostaa itse tulostajaFunktion niin foo tai bar ei kuitenkaan näy.
    * Seuraavat tulostavat siis täysin saman asian:
