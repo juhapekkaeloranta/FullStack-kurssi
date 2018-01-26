@@ -87,7 +87,7 @@ class App extends React.Component {
         </form>
 
         <h2>Numerot</h2>
-        <Rows rowsData={this.state.persons} filterWord={this.state.filterWord} />
+        <Rows rowsData={this.state.persons} filteringTerm={this.state.filterWord} />
       </div>
     )
   }

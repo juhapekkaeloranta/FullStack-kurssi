@@ -1,23 +1,26 @@
-import React, { cloneElement } from 'react'
+import React from 'react'
 import Row from './Row'
 
-const Rows = ({ rowsData, filterWord }) => {
+const Rows = ({ rowsData, filteringTerm }) => {
 
-  const comparisonGenerator = (substringToFind) => {
+  const includesGenerator = (substringToFind) => {
     return (textToSearchFrom) => {
-      console.log('trying to find', substringToFind, 'from', textToSearchFrom)
-      const wasFound = textToSearchFrom.includes(substringToFind)
+      console.log('searching for:', substringToFind, 'in', textToSearchFrom)
       return (
-        wasFound
+        textToSearchFrom.toLowerCase().includes(substringToFind.toLowerCase())
       )
     }
   }
 
-  const fooFinder = comparisonGenerator('foo')
+  const includesFilteringTerm = includesGenerator(filteringTerm)
 
-  console.log(fooFinder('barbarfoo'))
+  const personFilter = ({name}) => {
+    return (
+      includesFilteringTerm(name)
+    )
+  }
 
-  const filteredNames = rowsData
+  const filteredNames = rowsData.filter(personFilter)
 
   return (
     <ul>
