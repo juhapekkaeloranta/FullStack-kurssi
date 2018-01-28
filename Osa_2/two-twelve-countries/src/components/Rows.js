@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Rows = ({ rowsData, filteringTerm }) => {
+const Rows = ({ handleLinkClick, rowsData, filteringTerm }) => {
 
   const includesGenerator = (substringToFind) => {
     return (textToSearchFrom) => {
@@ -42,7 +42,9 @@ const Rows = ({ rowsData, filteringTerm }) => {
     return (
       <ul>
         {filteredRows.map(row =>
-          <li key={row.name}>{row.name}</li>)}
+          <li key={row.name}>
+            <a name={row.name} onClick={handleLinkClick} href='#'>{row.name}</a>
+          </li>)}
       </ul>
     )
   }

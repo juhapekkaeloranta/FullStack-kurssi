@@ -8,7 +8,7 @@ class App extends Component {
     super(props)
     this.state = {
       countries: [],
-      filterWord: 'Finland'
+      filterWord: 'fi'
     }
   }
 
@@ -21,9 +21,16 @@ class App extends Component {
     })
   }
 
-  saveEventTargetToState = (nameOfStateVar) => {
+  saveEventTargetValueToState = (nameOfStateVar) => {
     return (event) => {
+      console.log(event.target)
       this.setState({ [nameOfStateVar]: event.target.value })
+    }
+  }
+
+  saveEventTargetNameToState = (nameOfStateVar) => {
+    return (event) => {
+      this.setState({ [nameOfStateVar]: event.target.name})
     }
   }
 
@@ -34,11 +41,12 @@ class App extends Component {
         <SearchField
           promptText='find countries: '
           hintText={this.state.filterWord}
-          handleChange={this.saveEventTargetToState('filterWord')}
+          handleChange={this.saveEventTargetValueToState('filterWord')}
         />
         <Rows
           rowsData={this.state.countries}
           filteringTerm={this.state.filterWord}
+          handleLinkClick={this.saveEventTargetNameToState('filterWord')}
         />
       </div>
     );
