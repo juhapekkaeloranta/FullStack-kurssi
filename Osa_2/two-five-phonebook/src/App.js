@@ -17,6 +17,7 @@ class App extends React.Component {
       newNumber: '040-12312300',
       filterWord: ''
     }
+    this.saveContacts = this.saveContacts.bind(this)
   }
 
   addContact = (event) => {
@@ -59,8 +60,19 @@ class App extends React.Component {
       .get('http://localhost:3001/persons')
       .then(response => {
         console.log('promise fulfilled')
-        this.setState({ persons: response.data })
+        /*this.setState({ persons: response.data })*/
       })
+  }
+
+  saveContacts() {
+    const foo = this.state.persons
+    console.log('saving..')
+    console.log(foo);
+    /*axios.post('http://localhost:3001/persons', this.state.persons)
+    .then(response => {
+      console.log(response)
+      //  window.alert('Save completed! Status: ', response.status)
+    })*/
   }
 
 
@@ -95,6 +107,9 @@ class App extends React.Component {
           rowsData={this.state.persons}
           filteringTerm={this.state.filterWord}
         />
+        <button onClick={this.saveContacts}>
+          Tallenna numerot
+        </button>
       </div>
     )
   }
