@@ -3,6 +3,7 @@ import './index.css'
 import Rows from './components/Rows'
 import SearchField from './components/SearchField';
 import InputField from './components/InputField';
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -51,6 +52,18 @@ class App extends React.Component {
       this.setState({ [nameOfStateVar]: '' })
     }
   }
+
+  componentWillMount() {
+    console.log('will mount')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        this.setState({ persons: response.data })
+      })
+  }
+
+
   /* Note: How to reduce amount of fields in InputField?
   */
   render() {
