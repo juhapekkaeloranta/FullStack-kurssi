@@ -112,6 +112,10 @@ class App extends React.Component {
             'Henkilön '.concat(personObject.name).concat(' numero päivitetty!'))
           this.getAllContacts()
         })
+        .catch(error => {
+          this.showNotification('Päivitys epäonnistui!')
+          this.getAllContacts()
+        })
   }
 
   resetNotification() {
