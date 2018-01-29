@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 import './index.css'
 import Rows from './components/Rows'
-import SearchField from './components/SearchField';
-import InputField from './components/InputField';
+import SearchField from './components/SearchField'
+import InputField from './components/InputField'
+import Notification from './components/Notification'
 import BackendService from './Services/BackendService'
 
 class App extends React.Component {
@@ -15,7 +16,8 @@ class App extends React.Component {
       ],
       newName: 'add new..',
       newNumber: '040-12312300',
-      filterWord: ''
+      filterWord: '',
+      notificationMsg: null
     }
   }
 
@@ -80,6 +82,7 @@ class App extends React.Component {
       .then(response => {
         console.log('save done with:', response.status);
         this.getAllContacts()
+        this.showNotification(newPerson.name.concat(' lisättiin yhteystietoihin!'))
       })
   }
 
@@ -93,9 +96,22 @@ class App extends React.Component {
         .then(response => {
           console.log('delete done with:', response.status);
           this.getAllContacts()
+          this.showNotification(nameToDelete.concat(' poistettu!'))
       })
       
     }
+  }
+
+  resetNotification() {
+    this.setState({ notificationMsg: null })
+    console.log(this.state.notificationMsg)
+  }
+
+  showNotification(newMsg) {
+    this.setState({ notificationMsg: newMsg })
+    setTimeout(() => {
+      this.setState({notificationMsg: null})
+    }, 5000)
   }
 
 
@@ -104,6 +120,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Notification message={this.state.notificationMsg}/>
         <h1>Puhelinluettelo</h1>
         <SearchField
           text={this.state.filterWord}
