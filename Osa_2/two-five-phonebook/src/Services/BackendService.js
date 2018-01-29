@@ -43,4 +43,14 @@ const deleteByName = (nameToDelete) => {
   )
 }
 
-export default { getAll, create, saveAll, printFoo, deleteByName }
+const updateObject = (objectToReplace) => {
+  console.log(objectToReplace);
+  const url = baseUrl.concat('/').concat(objectToReplace.id)
+  console.log(url);
+  return (
+    axios
+    .put(url, objectToReplace)
+  )
+}
+
+export default { getAll, create, saveAll, printFoo, deleteByName, updateObject }

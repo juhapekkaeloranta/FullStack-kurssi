@@ -5,7 +5,6 @@ const Rows = ({ rowsData, filteringTerm, deleteRow }) => {
 
   const includesGenerator = (substringToFind) => {
     return (textToSearchFrom) => {
-      console.log('searching for:', substringToFind, 'in', textToSearchFrom)
       return (
         textToSearchFrom.toLowerCase().includes(substringToFind.toLowerCase())
       )

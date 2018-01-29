@@ -24,34 +24,41 @@ class App extends React.Component {
   addContact = (event) => {
     event.preventDefault()
     const tempPersons = this.state.persons
-    const tempPerson = this.state.newName
+    const tempPersonName = this.state.newName
     const tempNumber = this.state.newNumber
-
-    const isDuplicate = tempPersons.find(contact => {
-      return contact.name === tempPerson
-    })
-
     let pleaseReplace = false
 
-    if (isDuplicate) {
+    if (this.nameExists(tempPersonName)) {
       pleaseReplace = window.confirm(
-        tempPerson.concat(' on jo luettelossa. Korvataanko?'))
+        tempPersonName.concat(' on jo luettelossa. Korvataanko?'))
     } else {
-      this.saveNewPerson({ name: tempPerson, number: tempNumber })
+      this.saveNewPerson({ name: tempPersonName, number: tempNumber })
     }
     
     if (pleaseReplace) {
       console.log('replacing..');
       tempPersons.map(person => 
-        person.name === 'uusi' ? person.number = tempNumber : null
+        person.name === tempPersonName ? person.number = tempNumber : null,
       )
       this.setState({ persons: tempPersons})
+      let tempObject = tempPersons.filter(person => person.name === tempPersonName)[0]
+      console.log(tempObject);
+      BackendService
+        .updateObject({ name: tempPersonName, number: tempNumber, id: tempObject.id})
+      this.showNotification(
+        'Henkilön '.concat(tempPersonName).concat(' numero päivitetty!'))
     } 
+  }
+
+  nameExists(nameToFind) {
+    const exists = this.state.persons.findIndex(person => {
+      return person.name === nameToFind
+    })
+    return exists > -1
   }
 
   saveEventTargetToState = (nameOfStateVar) => {
     return (event) => {
-      console.log(nameOfStateVar)
       this.setState({ [nameOfStateVar]: event.target.value })
     }
   }
