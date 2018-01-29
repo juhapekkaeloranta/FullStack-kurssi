@@ -36,17 +36,12 @@ class App extends React.Component {
     }
     
     if (pleaseReplace) {
-      console.log('replacing..');
+      console.log('Replacing..');
+      let currentPerson = tempPersons.filter(person => person.name === tempPersonName)[0]
       tempPersons.map(person => 
         person.name === tempPersonName ? person.number = tempNumber : null,
       )
-      this.setState({ persons: tempPersons})
-      let tempObject = tempPersons.filter(person => person.name === tempPersonName)[0]
-      console.log(tempObject);
-      BackendService
-        .updateObject({ name: tempPersonName, number: tempNumber, id: tempObject.id})
-      this.showNotification(
-        'Henkilön '.concat(tempPersonName).concat(' numero päivitetty!'))
+      this.updatePerson({ name: tempPersonName, number: tempNumber, id: currentPerson.id})
     } 
   }
 
@@ -107,6 +102,16 @@ class App extends React.Component {
       })
       
     }
+  }
+
+  updatePerson(personObject) {
+    BackendService
+        .updateObject(personObject)
+        .then(response => {
+          this.showNotification(
+            'Henkilön '.concat(personObject.name).concat(' numero päivitetty!'))
+          this.getAllContacts()
+        })
   }
 
   resetNotification() {
