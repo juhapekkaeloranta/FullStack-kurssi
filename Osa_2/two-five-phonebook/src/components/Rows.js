@@ -1,7 +1,7 @@
 import React from 'react'
 import Row from './Row'
 
-const Rows = ({ rowsData, filteringTerm }) => {
+const Rows = ({ rowsData, filteringTerm, deleteRow }) => {
 
   const includesGenerator = (substringToFind) => {
     return (textToSearchFrom) => {
@@ -25,7 +25,7 @@ const Rows = ({ rowsData, filteringTerm }) => {
   return (
     <ul>
       {filteredNames.map(row =>
-        <Row key={row.name} rowData={row} />)}
+        <Row key={row.name} rowData={row} deleteRow={deleteRow}/>)}
     </ul>
   )
 }

@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Row = ({ rowData }) => {
+const Row = ({ rowData, deleteRow }) => {
     return (
-      <li>{rowData.name}: {rowData.number}</li>
+      <li>
+        {rowData.name}: {rowData.number}
+        <button name={rowData.id} onClick={deleteRow}>Poista</button>
+      </li>
     )
   }
 

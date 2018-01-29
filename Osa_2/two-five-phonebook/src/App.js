@@ -68,8 +68,23 @@ class App extends React.Component {
       .create(newPerson)
       .then(response => {
         console.log('save done with:', response.status);
+        this.getAllContacts()
       })
-    this.getAllContacts()
+  }
+
+  deletePerson() {
+    return (event) => {
+      const idToDelete = event.target.name
+      console.log('deleting:', idToDelete);
+      BackendService
+        .deleteObject(idToDelete)
+        .then(response => {
+          console.log('deleted?');
+          console.log(response);
+          this.getAllContacts()
+      })
+      
+    }
   }
 
 
@@ -103,6 +118,7 @@ class App extends React.Component {
         <Rows 
           rowsData={this.state.persons}
           filteringTerm={this.state.filterWord}
+          deleteRow={this.deletePerson()}
         />
       </div>
     )

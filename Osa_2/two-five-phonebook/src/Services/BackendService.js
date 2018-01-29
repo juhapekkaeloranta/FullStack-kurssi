@@ -17,4 +17,10 @@ const printFoo = () => {
   console.log('fooFromBackendService!');
 }
 
-export default { getAll, create, saveAll, printFoo }
+const deleteObject = (idToDelete) => {
+  console.log(idToDelete);
+  console.log(baseUrl.concat('/').concat(idToDelete))
+  return axios.delete(baseUrl.concat('/').concat(idToDelete))
+}
+
+export default { getAll, create, saveAll, printFoo, deleteObject }
