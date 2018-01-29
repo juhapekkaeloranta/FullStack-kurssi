@@ -29,11 +29,22 @@ class App extends React.Component {
       return contact.name === tempPerson
     })
 
+    let pleaseReplace = false
+
     if (isDuplicate) {
-      window.alert("Duplicate name - not saved!");
+      pleaseReplace = window.confirm(
+        tempPerson.concat(' on jo luettelossa. Korvataanko?'))
     } else {
       this.saveNewPerson({ name: tempPerson, number: tempNumber })
     }
+    
+    if (pleaseReplace) {
+      console.log('replacing..');
+      tempPersons.map(person => 
+        person.name === 'uusi' ? person.number = tempNumber : null
+      )
+      this.setState({ persons: tempPersons})
+    } 
   }
 
   saveEventTargetToState = (nameOfStateVar) => {
