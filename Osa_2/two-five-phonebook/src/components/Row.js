@@ -4,7 +4,7 @@ const Row = ({ rowData, deleteRow }) => {
     return (
       <li>
         {rowData.name}: {rowData.number}
-        <button name={rowData.id} onClick={deleteRow}>Poista</button>
+        <button value={rowData.name} onClick={deleteRow}>Poista</button>
       </li>
     )
   }

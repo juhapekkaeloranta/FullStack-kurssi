@@ -17,10 +17,30 @@ const printFoo = () => {
   console.log('fooFromBackendService!');
 }
 
-const deleteObject = (idToDelete) => {
-  console.log(idToDelete);
-  console.log(baseUrl.concat('/').concat(idToDelete))
-  return axios.delete(baseUrl.concat('/').concat(idToDelete))
+const getByName = (nameToFind) => {
+  console.log(nameToFind);
+  return (
+    axios.get(baseUrl.concat('?name=').concat(nameToFind))
+  )
 }
 
-export default { getAll, create, saveAll, printFoo, deleteObject }
+const deleteById = (idToDelete) => {
+  return (
+    axios.delete(baseUrl.concat('/').concat(idToDelete))
+  )
+}
+
+const deleteByName = (nameToDelete) => {
+  return (
+    getByName(nameToDelete)
+    .then(response => {
+      const idToDelete = response.data[0].id
+      console.log(baseUrl.concat('/').concat(idToDelete))
+      return (
+        deleteById(idToDelete)
+      )
+   })
+  )
+}
+
+export default { getAll, create, saveAll, printFoo, deleteByName }

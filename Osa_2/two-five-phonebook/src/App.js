@@ -74,13 +74,13 @@ class App extends React.Component {
 
   deletePerson() {
     return (event) => {
-      const idToDelete = event.target.name
-      console.log('deleting:', idToDelete);
+      const nameToDelete = event.target.value
+      window.confirm('Poistetaanko '.concat(nameToDelete))
+      console.log('deleting:', nameToDelete);
       BackendService
-        .deleteObject(idToDelete)
+        .deleteByName(nameToDelete)
         .then(response => {
-          console.log('deleted?');
-          console.log(response);
+          console.log('delete done with:', response.status);
           this.getAllContacts()
       })
       
