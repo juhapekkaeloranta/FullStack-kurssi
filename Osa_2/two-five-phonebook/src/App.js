@@ -3,7 +3,7 @@ import './index.css'
 import Rows from './components/Rows'
 import SearchField from './components/SearchField';
 import InputField from './components/InputField';
-import axios from 'axios'
+import BackendService from './Services/BackendService'
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class App extends React.Component {
       newNumber: '040-12312300',
       filterWord: ''
     }
-    this.saveContacts = this.saveContacts.bind(this)
   }
 
   addContact = (event) => {
@@ -33,11 +32,7 @@ class App extends React.Component {
     if (isDuplicate) {
       window.alert("Duplicate name - not saved!");
     } else {
-      tempPersons.push({ name: tempPerson, number: tempNumber })
-      this.setState({
-        persons: tempPersons,
-        newName: 'add new..'
-      })
+      this.saveNewPerson({ name: tempPerson, number: tempNumber })
     }
   }
 
@@ -55,24 +50,26 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    console.log('will mount')
-    axios
-      .get('http://localhost:3001/persons')
+    console.log('componentWillMount')
+    this.getAllContacts()
+  }
+
+  getAllContacts() {
+    BackendService
+      .getAll()
       .then(response => {
-        console.log('promise fulfilled')
-        /*this.setState({ persons: response.data })*/
+        console.log('getAll finished with status:', response.status)
+        this.setState({ persons: response.data })
       })
   }
 
-  saveContacts() {
-    const foo = this.state.persons
-    console.log('saving..')
-    console.log(foo);
-    /*axios.post('http://localhost:3001/persons', this.state.persons)
-    .then(response => {
-      console.log(response)
-      //  window.alert('Save completed! Status: ', response.status)
-    })*/
+  saveNewPerson(newPerson) {
+    BackendService
+      .create(newPerson)
+      .then(response => {
+        console.log('save done with:', response.status);
+      })
+    this.getAllContacts()
   }
 
 
@@ -107,9 +104,6 @@ class App extends React.Component {
           rowsData={this.state.persons}
           filteringTerm={this.state.filterWord}
         />
-        <button onClick={this.saveContacts}>
-          Tallenna numerot
-        </button>
       </div>
     )
   }
